@@ -19,6 +19,7 @@ export default function TextRefinementApp() {
     style: "professional",
     tone: "formal",
     length: "maintain",
+    model: "gemini",
   });
 
   const { toast } = useToast();
