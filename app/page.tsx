@@ -8,7 +8,7 @@ import { RefinementControls } from "@/components/RefinementControls";
 import { RefinedOutput } from "@/components/RefinedOutput";
 import { calculateTextStats } from "@/lib/text-utils";
 import { RefinementOptions } from "@/lib/types";
-import { refineText } from "@/lib/api";
+import { refineText } from "@/lib/actions"; 
 import { useToast } from "@/hooks/use-toast";
 
 export default function Home() {
