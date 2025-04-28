@@ -52,15 +52,6 @@ export class GeminiModel {
     this.apiKey = apiKey;
   }
 
-//   curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=GEMINI_API_KEY" \
-// -H 'Content-Type: application/json' \
-// -X POST \
-// -d '{
-//   "contents": [{
-//     "parts":[{"text": "Explain how AI works"}]
-//     }]
-//    }'
-
   async generateResponse(text: string, systemPrompt: string): Promise<ModelResponse> {
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${this.apiKey}`, {
       method: "POST",

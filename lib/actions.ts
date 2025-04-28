@@ -6,12 +6,12 @@ import { RefinementOptions } from "./types";
 import { DeepSeekModel, GeminiModel, systemPrompts, toneInstructions, lengthInstructions } from "./models";
 
 export async function refineText(text: string, options: RefinementOptions) {
-  // const supabase = createServerActionClient({ cookies });
-  // const { data: { session } } = await supabase.auth.getSession();
+  const supabase = createServerActionClient({ cookies });
+  const { data: { session } } = await supabase.auth.getSession();
 
-  // if (!session) {
-  //   throw new Error("Unauthorized");
-  // }
+  if (!session) {
+    throw new Error("Unauthorized");
+  }
 
   const systemPrompt = `${systemPrompts[options.style] || systemPrompts.professional}
 ${toneInstructions[options.tone] || toneInstructions.formal}
@@ -27,12 +27,12 @@ ${lengthInstructions[options.length] || lengthInstructions.maintain}`;
     const refinedText = response.content;
 
     // Store the refinement in Supabase
-    // await supabase.from("refinements").insert({
-    //   user_id: session.user.id,
-    //   original_text: text,
-    //   refined_text: refinedText,
-    //   options: options
-    // });
+    await supabase.from("refinements").insert({
+      user_id: session.user.id,
+      original_text: text,
+      refined_text: refinedText,
+      options: options
+    });
 
     return refinedText;
   } catch (error) {
