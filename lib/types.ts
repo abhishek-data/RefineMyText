@@ -9,3 +9,9 @@ export interface TextStats {
   wordCount: number;
   charCount: number;
 }
+
+export interface GenerationConfig {
+  temperature?: number;
+  topP?: number;
+  topK?: number;
+}

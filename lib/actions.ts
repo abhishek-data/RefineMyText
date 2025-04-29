@@ -3,7 +3,8 @@
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { RefinementOptions } from "./types";
-import { DeepSeekModel, GeminiModel, systemPrompts, toneInstructions, lengthInstructions } from "./models";
+import { DeepSeekModel, GeminiModel } from "./models";
+import { systemPrompts, toneInstructions, lengthInstructions, lengthConfigOverrides, toneConfigOverrides, promptConfigOverrides } from "./models.config";
 
 export async function refineText(text: string, options: RefinementOptions) {
   const supabase = createServerActionClient({ cookies });
@@ -17,13 +18,20 @@ export async function refineText(text: string, options: RefinementOptions) {
 ${toneInstructions[options.tone] || toneInstructions.formal}
 ${lengthInstructions[options.length] || lengthInstructions.maintain}`;
 
+  const generationConfig = {
+    ...promptConfigOverrides[options.style],
+    ...toneConfigOverrides[options.tone],
+    ...lengthConfigOverrides[options.length],
+  };
+
+
   try {
     // Initialize the appropriate model based on the selected model
     const model = options.model === 'gemini' 
       ? new GeminiModel(process.env.GEMINI_API_KEY!)
       : new DeepSeekModel(process.env.DEEPSEEK_API_KEY!);
 
-    const response = await model.generateResponse(text, systemPrompt);
+    const response = await model.generateResponse(text, systemPrompt, generationConfig);
     const refinedText = response.content;
 
     // Store the refinement in Supabase
