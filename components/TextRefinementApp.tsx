@@ -55,47 +55,91 @@ export default function TextRefinementApp() {
   };
 
   return (
-    <main className="h-screen bg-gradient-to-b from-background to-muted p-4">
-      <div className="h-full flex flex-col max-w-7xl mx-auto gap-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold">Text Refinement Assistant</h1>
-            <p className="text-sm text-muted-foreground">
-              Enhance your writing with AI-powered refinements
-            </p>
-          </div>
-          <Button onClick={() => {}} variant="outline" size="sm">
-            <Upload className="w-4 h-4 mr-2" />
-            Upload Document
+    <main className="flex flex-col items-center justify-center min-h-[80vh] w-full px-2">
+      {/* Hero Section */}
+      <section className="w-full max-w-3xl text-center mb-8 mt-4">
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-2">
+          Text, <span className="bg-gradient-to-r from-purple-500 to-indigo-500 bg-clip-text text-transparent">Refined.</span>
+        </h1>
+        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">Transform Your Writing for Any Audience</h2>
+        <p className="text-lg text-muted-foreground mb-6">
+          Instantly refine your text for professionalism, academic rigor, technical clarity, creativity, or a natural conversational style. Make your writing sound more human, clear, and effective no matter the context.
+        </p>
+      </section>
+
+      {/* Main Card*/}
+      <div className="w-full max-w-5xl bg-white/90 rounded-2xl shadow-xl p-8 flex flex-col gap-8">
+        {/* Paste & Try Sample Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-2">
+          <Button
+            variant="outline"
+            className="flex items-center gap-2 px-6 py-2 text-base font-medium"
+            onClick={() => navigator.clipboard.readText().then(setText)}
+          >
+            <span role="img" aria-label="paste">📋</span> Paste
+          </Button>
+          <Button
+            variant="secondary"
+            className="flex items-center gap-2 px-6 py-2 text-base font-medium bg-gradient-to-r from-purple-500 to-indigo-500 text-white"
+            onClick={() => setText("This is a sample AI-generated text. Edit or refine it to see the magic! Use &apos;Refine Text&apos; to see results.")}
+          >
+            <span role="img" aria-label="sample">✨</span> Try a Sample
           </Button>
         </div>
 
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 min-h-0">
-          <TextEditor
-            value={text}
-            onChange={setText}
-            stats={textStats}
-            placeholder="Enter or paste your text here..."
-            title="Original Text"
-          />
-
-          <div className="flex flex-col gap-4 min-h-0">
-            <RefinementControls
-              options={options}
-              onOptionChange={handleOptionChange}
-              onRefine={handleRefine}
-              isProcessing={isProcessing}
-              disabled={!text}
-            />
-
-            <RefinedOutput
-              text={refinedText}
-              onAccept={handleAccept}
-              onReject={handleReject}
-            />
+        {/* Original Text Card with header controls */}
+        <div className="flex flex-col gap-6">
+          <div className="p-0">
+            <div className="flex flex-col gap-2">
+              {/* Textarea */}
+              <TextEditor
+                value={text}
+                onChange={setText}
+                stats={textStats}
+                placeholder="Enter or paste your text here..."
+                title="Original Text"
+              />
+              <RefinementControls
+                options={options}
+                onOptionChange={handleOptionChange}
+                onRefine={handleRefine}
+                isProcessing={isProcessing}
+                disabled={!text}
+              />
+            </div>
           </div>
+
+          {/* Refined Output*/}
+          <RefinedOutput
+            text={refinedText}
+            onAccept={handleAccept}
+            onReject={handleReject}
+          />
         </div>
       </div>
+
+      {/* How it works section */}
+      <section className="w-full flex justify-center mt-10 mb-8">
+        <div className="w-full max-w-5xl bg-white/80 rounded-2xl shadow-lg p-6 flex flex-col md:flex-row items-center gap-6">
+          <div className="flex flex-col items-center text-center flex-1">
+            <span className="text-3xl mb-2">①</span>
+            <h3 className="font-bold text-lg mb-1">Paste or type your text</h3>
+            <p className="text-sm text-muted-foreground">Start with any draft, email, essay, technical doc, or creative writing you want to improve.</p>
+          </div>
+          <div className="hidden md:block w-px h-16 bg-gradient-to-b from-purple-200 to-indigo-200 mx-4" />
+          <div className="flex flex-col items-center text-center flex-1">
+            <span className="text-3xl mb-2">②</span>
+            <h3 className="font-bold text-lg mb-1">Choose your refinement style</h3>
+            <p className="text-sm text-muted-foreground">Select from Professional, Academic, Casual, Technical, or Creative modes, and set the tone and length you need.</p>
+          </div>
+          <div className="hidden md:block w-px h-16 bg-gradient-to-b from-purple-200 to-indigo-200 mx-4" />
+          <div className="flex flex-col items-center text-center flex-1">
+            <span className="text-3xl mb-2">③</span>
+            <h3 className="font-bold text-lg mb-1">Get refined, humanized results</h3>
+            <p className="text-sm text-muted-foreground">Receive text that is clearer, more natural, and tailored for your audience—ready to use anywhere.</p>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

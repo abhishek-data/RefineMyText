@@ -28,16 +28,15 @@ export function RefinementControls({
   disabled,
 }: RefinementControlsProps) {
   return (
-    <Card className="p-4">
-      <h2 className="text-base font-semibold mb-3">Refinement Options</h2>
-      <div className="grid grid-cols-3 gap-3">
-        <div>
-          <label className="text-sm font-medium">Style</label>
+    <Card className="p-6 flex flex-col md:flex-row items-center gap-4 bg-white/80 rounded-xl shadow-md">
+      <div className="flex flex-1 flex-col md:flex-row gap-4 w-full">
+        <div className="flex-1 min-w-[120px]">
+          <label className="text-sm font-medium mb-1 block">Style</label>
           <Select
             value={options.style}
             onValueChange={(value) => onOptionChange("style", value)}
           >
-            <SelectTrigger>
+            <SelectTrigger className="rounded-lg bg-white/90 border border-gray-200 shadow-sm">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -49,14 +48,13 @@ export function RefinementControls({
             </SelectContent>
           </Select>
         </div>
-
-        <div>
-          <label className="text-sm font-medium">Tone</label>
+        <div className="flex-1 min-w-[120px]">
+          <label className="text-sm font-medium mb-1 block">Tone</label>
           <Select
             value={options.tone}
             onValueChange={(value) => onOptionChange("tone", value)}
           >
-            <SelectTrigger>
+            <SelectTrigger className="rounded-lg bg-white/90 border border-gray-200 shadow-sm">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -67,14 +65,13 @@ export function RefinementControls({
             </SelectContent>
           </Select>
         </div>
-
-        <div>
-          <label className="text-sm font-medium">Length</label>
+        <div className="flex-1 min-w-[120px]">
+          <label className="text-sm font-medium mb-1 block">Length</label>
           <Select
             value={options.length}
             onValueChange={(value) => onOptionChange("length", value)}
           >
-            <SelectTrigger>
+            <SelectTrigger className="rounded-lg bg-white/90 border border-gray-200 shadow-sm">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -84,20 +81,19 @@ export function RefinementControls({
             </SelectContent>
           </Select>
         </div>
-
-        <Button
-          className="col-span-3"
-          onClick={onRefine}
-          disabled={disabled || isProcessing}
-        >
-          {isProcessing ? (
-            <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-          ) : (
-            <Wand2 className="w-4 h-4 mr-2" />
-          )}
-          Refine Text
-        </Button>
       </div>
+      <Button
+        className="mt-4 md:mt-[23px] w-full md:w-auto px-8 py-2 text-base font-semibold rounded-lg bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow hover:from-purple-600 hover:to-indigo-600 transition"
+        onClick={onRefine}
+        disabled={disabled || isProcessing}
+      >
+        {isProcessing ? (
+          <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+        ) : (
+          <Wand2 className="w-4 h-4 mr-2" />
+        )}
+        Refine Text
+      </Button>
     </Card>
   );
 }

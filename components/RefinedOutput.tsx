@@ -50,14 +50,15 @@ export function RefinedOutput({ text, onAccept, onReject }: RefinedOutputProps) 
   };
 
   return (
-    <Card className={cn("p-4 flex-1 flex flex-col", !text && "opacity-50")}>
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-base font-semibold">Refined Text</h2>
+    <Card className={cn("p-6 flex-1 flex flex-col bg-white/80 rounded-xl shadow-md", !text && "opacity-50")}>
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-lg font-semibold">Refined Text</h2>
         {text && (
           <div className="flex gap-2">
             <Button
               variant="outline"
               size="sm"
+              className="rounded-lg border-gray-200 shadow-sm"
               onClick={handleCopy}
             >
               <Copy className="w-4 h-4 mr-2" />
@@ -66,6 +67,7 @@ export function RefinedOutput({ text, onAccept, onReject }: RefinedOutputProps) 
             <Button
               variant="outline"
               size="sm"
+              className="rounded-lg border-gray-200 shadow-sm"
               onClick={() => downloadText(text)}
             >
               <Download className="w-4 h-4 mr-2" />
@@ -74,10 +76,10 @@ export function RefinedOutput({ text, onAccept, onReject }: RefinedOutputProps) 
           </div>
         )}
       </div>
-      <div className="relative flex-1 bg-muted rounded-md p-4">
+      <div className="relative flex-1 bg-gradient-to-br from-purple-50 via-indigo-50 to-white rounded-lg p-4 border border-gray-100 min-h-[120px]">
         {text ? (
           <div className="h-full flex flex-col">
-            <p className="flex-1 whitespace-pre-wrap overflow-auto">{text}</p>
+            <p className="flex-1 whitespace-pre-wrap overflow-auto text-base text-gray-800">{text}</p>
             
             {showCommentBox && (
               <div className="mt-4 space-y-2">
@@ -85,15 +87,16 @@ export function RefinedOutput({ text, onAccept, onReject }: RefinedOutputProps) 
                   placeholder="Add your comments here..."
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
-                  className="min-h-[100px]"
+                  className="min-h-[100px] rounded-lg border-gray-200 shadow-sm"
                 />
                 <div className="flex gap-2">
-                  <Button size="sm" onClick={handleAddComment}>
+                  <Button size="sm" className="rounded-lg bg-gradient-to-r from-purple-500 to-indigo-500 text-white" onClick={handleAddComment}>
                     Add Comment
                   </Button>
                   <Button 
                     size="sm" 
                     variant="outline" 
+                    className="rounded-lg border-gray-200"
                     onClick={() => setShowCommentBox(false)}
                   >
                     Cancel
@@ -102,11 +105,13 @@ export function RefinedOutput({ text, onAccept, onReject }: RefinedOutputProps) 
               </div>
             )}
 
-            <div className="flex gap-2 mt-4">
+            <div className="my-4 border-t border-gray-200" />
+
+            <div className="flex gap-2 mt-2">
               <Button
                 size="sm"
                 variant="outline"
-                className="gap-1"
+                className="gap-1 rounded-lg border-gray-200"
                 onClick={onAccept}
               >
                 <Check className="w-4 h-4" /> Accept
@@ -114,7 +119,7 @@ export function RefinedOutput({ text, onAccept, onReject }: RefinedOutputProps) 
               <Button
                 size="sm"
                 variant="outline"
-                className="gap-1"
+                className="gap-1 rounded-lg border-gray-200"
                 onClick={onReject}
               >
                 <X className="w-4 h-4" /> Reject
@@ -123,7 +128,7 @@ export function RefinedOutput({ text, onAccept, onReject }: RefinedOutputProps) 
                 <Button
                   size="sm"
                   variant="outline"
-                  className="gap-1"
+                  className="gap-1 rounded-lg border-gray-200"
                   onClick={() => setShowCommentBox(true)}
                 >
                   <MessageSquarePlus className="w-4 h-4" /> Add Comment
